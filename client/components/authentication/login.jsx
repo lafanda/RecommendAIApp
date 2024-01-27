@@ -9,37 +9,40 @@ import {
     Button,
     TouchableOpacity,
 } from "react-native";
+import { LinearGradient } from 'expo-linear-gradient';
 
 function Login(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
     return (
-        <View style={styles.container}>
-            <StatusBar style="auto" />
-            <View style={styles.inputView}>
+        <LinearGradient  style={styles.linearGradient} colors={['#150c25', '#222222', 'black']}>
+            <Image style={styles.image} source={require('../../assets/Logo.png')} />
+            <View  style={styles.inputView}>
                 <TextInput
                     style={styles.TextInput}
-                    placeholder="Email."
-                    placeholderTextColor="#003f5c"
+                    placeholder="Username or Email"
+                    placeholderTextColor = '#696969'
                     onChangeText={(email) => setEmail(email)}
                 />
             </View>
             <View style={styles.inputView}>
                 <TextInput
                     style={styles.TextInput}
-                    placeholder="Password."
-                    placeholderTextColor="#003f5c"
+                    placeholder="Password"
+                    placeholderTextColor = '#696969'
                     secureTextEntry={true}
                     onChangeText={(password) => setPassword(password)}
                 />
             </View>
-            <TouchableOpacity>
-                <Text style={styles.forgot_button}>Forgot Password?</Text>
-            </TouchableOpacity>
+
             <TouchableOpacity style={styles.loginBtn}>
                 <Text style={styles.loginText}>LOGIN</Text>
             </TouchableOpacity>
-        </View>
+            <TouchableOpacity style={styles.signup}>
+                <Text  style={styles.signupgrey}>Don't have an account?<Text style={styles.signupwhite}> Sign up </Text></Text>
+            </TouchableOpacity>
+        </LinearGradient>
     );
 }
 
@@ -47,32 +50,45 @@ export default Login;
 
 
 const styles = StyleSheet.create({
-    container: {
+    linearGradient: {
         flex: 1,
-        backgroundColor: "#fff",
         alignItems: "center",
         justifyContent: "center",
     },
-    image: {
-        marginBottom: 40,
-    },
-    inputView: {
-        backgroundColor: "#FFC0CB",
-        borderRadius: 30,
-        width: "70%",
-        height: 45,
-        marginBottom: 20,
+    inputView:{
+        width: 300,
         alignItems: "center",
+        justifyContent: "center",
     },
+
     TextInput: {
-        height: 50,
-        flex: 1,
-        padding: 10,
-        marginLeft: 20,
+        color: "white",
+        width: '100%',
+        margin: 10,
+        padding: 15,
+        fontSize: 16,
+        borderBottomWidth: 1,
+        borderBottomColor: '#fff',
+
     },
+    signup:{
+      paddingTop: 50
+    },
+    signupgrey:{
+        color:  "#989898"
+    },
+    signupwhite:{
+      color: "white"
+    },
+    image: {
+        width: 120,
+        resizeMode: 'contain',
+    },
+
     forgot_button: {
         height: 30,
         marginBottom: 30,
+        color: "white",
     },
     loginBtn: {
         width: "80%",
