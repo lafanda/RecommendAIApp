@@ -28,7 +28,6 @@ const saltrounds = 10;
 app.post("/signUp", async (req,res)=>{
 
     try{
-    
         const secret = process.env.B_SECRET;
         var pwdDB = secret + req.body.password;
         const hashedPWD = await bcryptjs.hash(pwdDB, saltrounds)  // hashed password to pass into database
@@ -50,7 +49,7 @@ app.post("/signUp", async (req,res)=>{
     
 });
 
-app.post("/logIn", async (req,res)=>{
+app.post("/LogIn", async (req,res)=>{
 
     try{
 

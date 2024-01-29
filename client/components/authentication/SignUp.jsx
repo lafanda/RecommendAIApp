@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {MaterialCommunityIcons} from '@expo/vector-icons';
+import React, { useState } from "react";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import axios from 'axios';
 import {
     StyleSheet,
@@ -11,56 +11,63 @@ import {
     Alert,
     TouchableOpacity,
 } from "react-native";
-import {LinearGradient} from 'expo-linear-gradient';
+import { LinearGradient } from 'expo-linear-gradient';
 
-function LogIn({navigation}) {
+function SignUp({navigation}) {
     const [email, setEmail] = useState("");
+    const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
 
-    function toggleShowPassword({navigation}) {
+    function toggleShowPassword() {
         setShowPassword(!showPassword);
     };
 
-    async function onSubmit() {
+    async function onSubmit(){
         try {
-            const response = await axios.get('/LogIn', {
+            const response = await axios.get('/logIn', {
                 email: email,
                 password: password
             })
-            if (response.status !== 200) {
+            if (response.status !== 200){
                 console.log()
 
-            } else {
+            }else{
                 console.log(response.status)
             }
-        } catch (err) {
+        } catch(err){
             console.log(err)
         }
     }
 
-
-    const goToSignUp = () => {
-        navigation.navigate('SignUp');
+    const goToLogIn = () => {
+        navigation.navigate('LogIn');
     };
 
-
     return (
-        <LinearGradient style={styles.linearGradient} colors={['#150c25', '#222222', 'black']}>
-            <Image style={styles.image} source={require('../../assets/Logo.png')}/>
-            <View style={styles.inputView}>
+        <LinearGradient  style={styles.linearGradient} colors={['#150c25', '#222222', 'black']}>
+            <Image style={styles.image} source={require('../../assets/Logo.png')} />
+            <View  style={styles.inputView}>
                 <TextInput
                     style={styles.TextInput}
-                    placeholder="Username or Email"
-                    placeholderTextColor='#696969'
+                    placeholder=" Email"
+                    placeholderTextColor = '#696969'
                     onChangeText={(email) => setEmail(email)}
+                />
+            </View>
+            <View  style={styles.inputView}>
+                <TextInput
+                    style={styles.TextInput}
+                    placeholder="Username"
+                    placeholderTextColor = '#696969'
+                    onChangeText={(userName) => setUserName(userName)}
                 />
             </View>
             <View style={styles.inputView}>
                 <TextInput
                     style={styles.TextInput}
                     placeholder="Password"
-                    placeholderTextColor='#696969'
+                    placeholderTextColor = '#696969'
                     secureTextEntry={!showPassword}
                     onChangeText={(password) => setPassword(password)}
                 />
@@ -74,10 +81,10 @@ function LogIn({navigation}) {
             />
 
 
-            <TouchableOpacity style={styles.loginBtn}>
+            <TouchableOpacity onPress={onSubmit} style={styles.loginBtn}>
                 <Text style={styles.loginText}>LOGIN</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={goToSignUp} style={styles.signup}>
+            <TouchableOpacity onPress={goToLogIn} style={styles.signup}>
                 <Text style={styles.signupgrey}>
                     Don't have an account?
                     <Text style={styles.signupwhite}> Sign up </Text>
@@ -87,16 +94,16 @@ function LogIn({navigation}) {
     );
 }
 
-export default LogIn;
+export default SignUp;
 
-//
+
 const styles = StyleSheet.create({
     linearGradient: {
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
     },
-    inputView: {
+    inputView:{
         width: 300,
         alignItems: "center",
         justifyContent: "center",
@@ -112,13 +119,13 @@ const styles = StyleSheet.create({
         borderBottomColor: '#fff',
 
     },
-    signup: {
+    signup:{
         paddingTop: 50
     },
-    signupgrey: {
-        color: "#989898"
+    signupgrey:{
+        color:  "#989898"
     },
-    signupwhite: {
+    signupwhite:{
         color: "white"
     },
     image: {
@@ -138,6 +145,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         marginTop: 40,
-        backgroundColor: "#e71bdd",
+        backgroundColor: "#FF1493",
     },
 });
