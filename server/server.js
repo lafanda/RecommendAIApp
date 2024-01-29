@@ -50,7 +50,7 @@ app.post("/signUp", async (req,res)=>{
     
 });
 
-app.post("/signIn", async (req,res)=>{
+app.post("/logIn", async (req,res)=>{
 
     try{
 

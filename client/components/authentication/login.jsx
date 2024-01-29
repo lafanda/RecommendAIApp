@@ -1,5 +1,8 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
+
 import {
     StyleSheet,
     Text,
@@ -14,6 +17,29 @@ import { LinearGradient } from 'expo-linear-gradient';
 function Login(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
+
+    function toggleShowPassword() {
+        setShowPassword(!showPassword);
+    };
+
+    async function onSubmit(){
+        try {
+            const response = await axios.get('/logIn', {
+                email: email,
+                password: password
+            })
+            if (respose.status !== 200){
+
+            }else{
+                console.log(response.status)
+            }
+        } catch(err){
+            console.log(err)
+        }
+    }
+
+
 
     return (
         <LinearGradient  style={styles.linearGradient} colors={['#150c25', '#222222', 'black']}>
@@ -31,10 +57,18 @@ function Login(props) {
                     style={styles.TextInput}
                     placeholder="Password"
                     placeholderTextColor = '#696969'
-                    secureTextEntry={true}
+                    secureTextEntry={!showPassword}
                     onChangeText={(password) => setPassword(password)}
                 />
             </View>
+            <MaterialCommunityIcons
+                name={showPassword ? 'eye-off' : 'eye'}
+                size={24}
+                color="#aaa"
+                style={styles.icon}
+                onPress={toggleShowPassword}
+            />
+
 
             <TouchableOpacity style={styles.loginBtn}>
                 <Text style={styles.loginText}>LOGIN</Text>

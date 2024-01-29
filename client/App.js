@@ -1,7 +1,7 @@
 import { StyleSheet,StatusBar, } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Login from "./components/authentication/login";
+import Login from "./components/authentication/Login";
 
 const Stack = createNativeStackNavigator();
 
