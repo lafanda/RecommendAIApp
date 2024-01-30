@@ -8,6 +8,7 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import bcryptjs from "bcryptjs";
 
+import aiRoutes from "./assistant.js";
 
 const pwd = process.env.MONGO_Y;
 const uri = `mongodb+srv://yamenmoh250:${pwd}@cluster0.blp3ok9.mongodb.net/?retryWrites=true&w=majority`;
@@ -15,15 +16,14 @@ const uri = `mongodb+srv://yamenmoh250:${pwd}@cluster0.blp3ok9.mongodb.net/?retr
 mongoose.set('strictQuery', false);
 mongoose.connect(uri).then(console.log("Connected")).catch( (err)=>console.log("error connecting to database"));
 
-
 const app = express();
 const port = 4000;
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use("/ai", aiRoutes);
 
 const saltrounds = 10;
-
 
 app.post("/signUp", async (req,res)=>{
 
@@ -82,6 +82,7 @@ catch(err){
     res.status(400);
 }
 });
+
 
 
 
