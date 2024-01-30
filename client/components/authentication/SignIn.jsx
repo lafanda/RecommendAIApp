@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import {LinearGradient} from 'expo-linear-gradient';
 
-function LogIn({navigation}) {
+function SignIn({navigation}) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
@@ -22,17 +22,20 @@ function LogIn({navigation}) {
         setShowPassword(!showPassword);
     };
 
+    axios.get('http://192.168.2.19:4000/auth')
+    Alert.alert("running")
     async function onSubmit() {
         try {
-            const response = await axios.get('/LogIn', {
-                email: email,
+
+            const response = await axios.post('http://192.168.2.19:4000/auth/SignIn', {
+                UserId: email,
                 password: password
             })
             if (response.status !== 200) {
                 console.log()
 
             } else {
-                console.log(response.status)
+                navigation.navigate('Home');
             }
         } catch (err) {
             console.log(err)
@@ -46,7 +49,7 @@ function LogIn({navigation}) {
 
 
     return (
-        <LinearGradient style={styles.linearGradient} colors={['#150c25', '#222222', 'black']}>
+        <LinearGradient style={styles.linearGradient} colors={['rgba(255,147,56,0.8)', '#222222', 'black']}>
             <Image style={styles.image} source={require('../../assets/Logo.png')}/>
             <View style={styles.inputView}>
                 <TextInput
@@ -74,8 +77,8 @@ function LogIn({navigation}) {
             />
 
 
-            <TouchableOpacity style={styles.loginBtn}>
-                <Text style={styles.loginText}>LOGIN</Text>
+            <TouchableOpacity onPress={onSubmit} style={styles.loginBtn}>
+                <Text style={styles.loginText}>SignIn</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={goToSignUp} style={styles.signup}>
                 <Text style={styles.signupgrey}>
@@ -87,7 +90,7 @@ function LogIn({navigation}) {
     );
 }
 
-export default LogIn;
+export default SignIn;
 
 //
 const styles = StyleSheet.create({

@@ -22,18 +22,34 @@ function SignUp({navigation}) {
     function toggleShowPassword() {
         setShowPassword(!showPassword);
     };
-
     async function onSubmit(){
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const usernameRegex = /^[a-zA-Z0-9]+$/
+
+        if (!emailRegex.test(email)) {
+            Alert.alert("Invalid Email", "Please enter a valid email address.");
+            return;
+        }
+
+        if (!usernameRegex.test(userName)) {
+            Alert.alert(
+                "Invalid Username",
+                "Username can only contain letters and numbers."
+            );
+            return;
+        }
+
         try {
-            const response = await axios.get('/logIn', {
+            const response = await axios.post("http://192.168.2.19:4000/auth/SignUp", {
                 email: email,
+                userName: userName,
                 password: password
             })
             if (response.status !== 200){
-                console.log()
+                console.log(response.status)
 
             }else{
-                console.log(response.status)
+                navigation.navigate('Home');
             }
         } catch(err){
             console.log(err)
@@ -82,7 +98,7 @@ function SignUp({navigation}) {
 
 
             <TouchableOpacity onPress={onSubmit} style={styles.loginBtn}>
-                <Text style={styles.loginText}>LOGIN</Text>
+                <Text style={styles.loginText}>SignUp</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={goToLogIn} style={styles.signup}>
                 <Text style={styles.signupgrey}>
